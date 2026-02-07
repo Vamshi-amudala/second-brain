@@ -159,22 +159,7 @@ export default function WidgetPage() {
                     )}
                 </AnimatePresence>
 
-                {/* Embed Instructions */}
-                <Card className="p-4 bg-muted/30">
-                    <h3 className="font-semibold text-sm mb-2">Embed This Widget</h3>
-                    <p className="text-xs text-muted-foreground mb-3">
-                        Copy this code to embed the search widget on any website:
-                    </p>
-                    <pre className="bg-background p-3 rounded text-xs overflow-x-auto">
-                        {`<iframe 
-  src="${typeof window !== 'undefined' ? window.location.origin : ''}/widget"
-  width="100%"
-  height="600"
-  frameborder="0"
-  style="border: 1px solid #e5e7eb; border-radius: 8px;"
-></iframe>`}
-                    </pre>
-                </Card>
+
             </div>
         </div>
     );
