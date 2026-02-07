@@ -18,7 +18,14 @@ export async function generateSummary(content: string): Promise<string> {
 
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Generate a concise 2-sentence summary of the following content. Be clear and informative:\n\n${content}`,
+            prompt: `Generate an 'Insightful Summary' of the following content. Follow this structure:
+
+Core Objective: One clear sentence.
+Key Takeaways: 2-3 bullet points.
+AI Context: One sentence on future utility.
+
+Content:
+${content}`,
         });
 
         console.log('[AI] Summary generated successfully');
@@ -61,20 +68,29 @@ export async function enhanceContent(
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Analyze the following content and provide:
-1. A concise 2-sentence summary
-2. Exactly 3 relevant tags (single words or short phrases, lowercase)
+            prompt: `Analyze the following content and provide an 'Insightful Summary' that follows this exact structure:
+
+Core Objective: One clear sentence on what this note is about.
+
+Key Takeaways: 
+- [Takeaway 1]
+- [Takeaway 2]
+- [Takeaway 3]
+
+AI Context: One sentence on why this information might be useful later.
+
+Also provide exactly 3 relevant tags.
 
 Title: ${title}
 Content: ${content}
 
-Format your response as:
-SUMMARY: [your summary here]
+Format your response exactly as:
+SUMMARY: [Your structured summary here]
 TAGS: tag1, tag2, tag3`,
         });
 
-        const summaryMatch = text.match(/SUMMARY:\s*(.+?)(?=TAGS:|$)/s);
-        const tagsMatch = text.match(/TAGS:\s*(.+?)$/s);
+        const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=TAGS:|$)/);
+        const tagsMatch = text.match(/TAGS:\s*([\s\S]+?)$/);
 
         const summary = summaryMatch ? summaryMatch[1].trim() : await generateSummary(content);
         const tagsText = tagsMatch ? tagsMatch[1].trim() : '';

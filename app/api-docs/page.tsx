@@ -141,7 +141,7 @@ export default function APIDocsPage() {
                     <section>
                         <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
                             <Play className="h-8 w-8 text-primary" />
-                            Try It Out
+                            Live API Tester
                         </h2>
                         <Card className="p-6 bg-card/50 backdrop-blur-sm space-y-4">
                             <div>
