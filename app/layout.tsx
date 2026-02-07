@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { SmoothScroll } from '@/components/smooth-scroll';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <Toaster richColors position="bottom-right" />
         </SmoothScroll>
       </body>
     </html>

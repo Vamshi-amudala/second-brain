@@ -18,11 +18,13 @@ export async function generateSummary(content: string): Promise<string> {
 
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Generate an 'Insightful Summary' of the following content. Follow this structure:
-
-Core Objective: One clear sentence.
-Key Takeaways: 2-3 bullet points.
-AI Context: One sentence on future utility.
+            prompt: `You are the user's Second Brain. Summarize the following content into a single, high-impact insight or actionable takeaway.
+            
+Rules:
+- be direct and concise (max 2 sentences)
+- Do NOT use phrases like "The user...", "This text...", or "The author..."
+- Focus on the core idea or value of the information
+- Use a professional, intelligent tone
 
 Content:
 ${content}`,
@@ -68,24 +70,15 @@ export async function enhanceContent(
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Analyze the following content and provide an 'Insightful Summary' that follows this exact structure:
-
-Core Objective: One clear sentence on what this note is about.
-
-Key Takeaways: 
-- [Takeaway 1]
-- [Takeaway 2]
-- [Takeaway 3]
-
-AI Context: One sentence on why this information might be useful later.
-
-Also provide exactly 3 relevant tags.
+            prompt: `Analyze the following content and provide:
+1. A concise 2-sentence summary
+2. Exactly 3 relevant tags (single words or short phrases, lowercase)
 
 Title: ${title}
 Content: ${content}
 
-Format your response exactly as:
-SUMMARY: [Your structured summary here]
+Format your response as:
+SUMMARY: [your summary here]
 TAGS: tag1, tag2, tag3`,
         });
 

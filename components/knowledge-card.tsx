@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { deleteKnowledgeItem } from '@/app/actions/knowledge';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 interface KnowledgeCardProps {
     item: KnowledgeItem;
@@ -26,9 +27,10 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
         const result = await deleteKnowledgeItem(item.id);
 
         if (result.success) {
+            toast.success('Item deleted successfully');
             onDelete?.();
         } else {
-            alert(`Error: ${result.error}`);
+            toast.error(`Failed to delete item: ${result.error}`);
             setIsDeleting(false);
         }
     };
@@ -170,9 +172,9 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                                         <h3 className="text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
                                             AI Summary
                                         </h3>
-                                        <div className="text-cyan-100/80 leading-relaxed text-sm whitespace-pre-wrap font-mono">
+                                        <p className="text-cyan-100/80 leading-relaxed text-sm">
                                             {item.summary}
-                                        </div>
+                                        </p>
                                     </div>
                                 )}
 

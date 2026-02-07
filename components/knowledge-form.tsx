@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { createKnowledgeItem } from '@/app/actions/knowledge';
 import { Loader2, Sparkles } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function KnowledgeForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,12 +73,12 @@ export function KnowledgeForm() {
                 });
                 setErrors({});
 
-                alert('Knowledge item created successfully!');
+                toast.success('Knowledge item created successfully!');
             } else {
-                alert(`Error: ${result.error}`);
+                toast.error(`Failed to create item: ${result.error}`);
             }
         } catch (error) {
-            alert('An unexpected error occurred');
+            toast.error('An unexpected error occurred');
         } finally {
             setIsSubmitting(false);
         }
