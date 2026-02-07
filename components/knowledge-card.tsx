@@ -170,9 +170,9 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                                         <h3 className="text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
                                             AI Summary
                                         </h3>
-                                        <p className="text-cyan-100/80 leading-relaxed text-sm">
+                                        <div className="text-cyan-100/80 leading-relaxed text-sm whitespace-pre-wrap font-mono">
                                             {item.summary}
-                                        </p>
+                                        </div>
                                     </div>
                                 )}
 

@@ -9,7 +9,7 @@ import { KnowledgeItem } from '@/lib/db';
 import { getKnowledgeItems } from '@/app/actions/knowledge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X, Filter, SortAsc } from 'lucide-react';
+import { Search, X, Filter, SortAsc, Code, Copy, Check } from 'lucide-react';
 
 export function KnowledgeDashboard() {
     const [items, setItems] = useState<KnowledgeItem[]>([]);
@@ -18,6 +18,8 @@ export function KnowledgeDashboard() {
     const [typeFilter, setTypeFilter] = useState<string>('');
     const [sortBy, setSortBy] = useState<'created_at' | 'title'>('created_at');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+    const [showEmbed, setShowEmbed] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     const hasActiveFilters = searchQuery || typeFilter;
 
@@ -60,10 +62,10 @@ export function KnowledgeDashboard() {
     return (
         <div className="space-y-8 relative min-h-[600px]">
             {/* Ambient Background Mesh */}
-            {/* Ambient Background Mesh - Bolt Style */}
+            {/* Ambient Background Mesh - Bolt Style (Static) */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-cyan-900/10 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px] animate-pulse delay-1000" />
+                <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-cyan-900/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px]" />
             </div>
 
             <motion.div
@@ -139,6 +141,15 @@ export function KnowledgeDashboard() {
                             Clear
                         </Button>
                     )}
+
+                    <Button
+                        onClick={() => setShowEmbed(true)}
+                        variant="outline"
+                        className="border-cyan-500/20 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300 ml-2"
+                    >
+                        <Code className="h-4 w-4 mr-2" />
+                        Embed
+                    </Button>
                 </div>
             </motion.div>
 
@@ -195,6 +206,78 @@ export function KnowledgeDashboard() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+
+            <AnimatePresence>
+                {showEmbed && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+                        onClick={() => setShowEmbed(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#0c0c0e] border border-white/10 rounded-xl max-w-lg w-full p-6 shadow-2xl relative"
+                        >
+                            <button
+                                onClick={() => setShowEmbed(false)}
+                                className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+                                <Code className="h-5 w-5 text-cyan-500" />
+                                Embed Search Widget
+                            </h3>
+                            <p className="text-sm text-muted-foreground mb-4">
+                                Place this code on your website to display your Second Brain search interface.
+                            </p>
+
+                            <div className="relative bg-black/50 p-4 rounded-lg border border-white/5 mb-6">
+                                <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap font-mono">
+                                    {`<iframe 
+  src="${typeof window !== 'undefined' ? window.location.origin : ''}/widget"
+  width="100%"
+  height="600"
+  frameborder="0"
+  style="border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);"
+></iframe>`}
+                                </pre>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="absolute top-2 right-2 h-8 w-8 hover:bg-white/10"
+                                    onClick={() => {
+                                        const code = `<iframe src="${window.location.origin}/widget" width="100%" height="600" frameborder="0" style="border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);"></iframe>`;
+                                        navigator.clipboard.writeText(code);
+                                        setCopied(true);
+                                        setTimeout(() => setCopied(false), 2000);
+                                    }}
+                                >
+                                    {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                                </Button>
+                            </div>
+
+                            <div className="flex justify-end gap-2">
+                                <Button variant="ghost" onClick={() => setShowEmbed(false)}>
+                                    Close
+                                </Button>
+                                <Button
+                                    className="bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/20"
+                                    onClick={() => window.open('/widget', '_blank')}
+                                >
+                                    Preview Widget
+                                </Button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div >
     );
 }
