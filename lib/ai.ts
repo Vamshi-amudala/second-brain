@@ -18,24 +18,27 @@ export async function generateSummary(content: string): Promise<string> {
 
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `You are an intelligent Second Brain assistant. Your job is to ADD VALUE to the user's notes.
+            prompt: `You are an elite knowledge synthesis AI. Your purpose is to transform raw information into actionable intelligence.
 
-CRITICAL RULES:
-1. If the content is SHORT (1-2 sentences), DO NOT just repeat it. Instead, expand it with:
-   - WHY this matters
-   - WHAT the user should focus on
-   - HOW this connects to broader goals
-   
-2. If the content is LONG (article, detailed notes), distill it into key insights.
+🎯 YOUR MISSION:
+Analyze the content below and create a summary that:
+- Reveals the CORE INSIGHT (not just what it says, but what it MEANS)
+- Explains WHY this matters to the user's goals
+- Suggests WHAT ACTION or focus this enables
+- Connects to BROADER CONTEXT when relevant
 
-3. NEVER use phrases like "The user...", "This text...", "The content..."
+⚠️ CRITICAL RULES:
+1. For SHORT content (1-2 sentences): EXPAND with context, implications, or strategic value
+2. For LONG content: DISTILL to the essential insight and actionable takeaway
+3. NEVER use third-person phrases like "The user...", "This text...", "The individual..."
+4. Write as if YOU are the user's internal voice of wisdom
+5. Be conversational, direct, and insightful (2-3 sentences max)
+6. Focus on UTILITY: make this knowledge immediately useful
 
-4. Be direct, actionable, and insightful (max 2 sentences).
-
-Content to analyze:
+📝 Content to synthesize:
 ${content}
 
-Your intelligent summary:`,
+💡 Your intelligent synthesis:`,
         });
 
         console.log('[AI] Summary generated successfully');
@@ -50,12 +53,21 @@ export async function suggestTags(content: string, title: string): Promise<strin
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Based on the following title and content, suggest exactly 3 relevant tags (single words or short phrases, lowercase, separated by commas).
+            prompt: `You are an intelligent tagging system for a Second Brain knowledge base.
 
+🎯 OBJECTIVE: Generate 3 precise, discoverable tags that maximize future retrieval.
+
+✨ TAG PHILOSOPHY:
+- Tags should be SPECIFIC enough to be useful, BROAD enough to connect ideas
+- Mix TOPIC tags (what it's about) with CONTEXT tags (why it matters)
+- Prioritize tags that enable SERENDIPITOUS DISCOVERY of related knowledge
+- Use industry-standard terminology when applicable
+
+📋 Content:
 Title: ${title}
 Content: ${content}
 
-Return only the tags, separated by commas, nothing else.`,
+🏷️ Return ONLY 3 tags (lowercase, comma-separated, no explanations):`,
         });
 
         const tags = text
@@ -78,16 +90,32 @@ export async function enhanceContent(
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `Analyze the following content and provide:
-1. A concise 2-sentence summary
-2. Exactly 3 relevant tags (single words or short phrases, lowercase)
+            prompt: `You are an elite knowledge synthesis AI for a Second Brain system.
 
+🎯 YOUR MISSION: Transform this raw note into structured, actionable intelligence.
+
+📝 Content:
 Title: ${title}
 Content: ${content}
 
-Format your response as:
-SUMMARY: [your summary here]
-TAGS: tag1, tag2, tag3`,
+✨ SYNTHESIS REQUIREMENTS:
+
+1. **SUMMARY** (2-3 sentences):
+   - Extract the CORE INSIGHT (what this really means)
+   - Explain WHY this matters or WHAT it enables
+   - Be conversational and direct (avoid "The user...", "This content...")
+   - Focus on ACTIONABLE VALUE
+
+2. **TAGS** (exactly 3):
+   - Mix TOPIC tags (subject) with CONTEXT tags (application/goal)
+   - Use lowercase, industry-standard terms
+   - Optimize for future discovery and connection-making
+
+📤 FORMAT (strict):
+SUMMARY: [your intelligent synthesis here]
+TAGS: tag1, tag2, tag3
+
+💡 Begin:`,
         });
 
         const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=TAGS:|$)/);
