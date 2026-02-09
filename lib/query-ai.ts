@@ -71,7 +71,7 @@ ANSWER:`;
             model: getAIModel(),
             prompt: prompt,
             temperature: 0.7,
-            maxTokens: 1000,
+           maxOutputTokens: 1000,
         });
 
         console.log('[Query AI] AI response received:', text.substring(0, 100) + '...');
