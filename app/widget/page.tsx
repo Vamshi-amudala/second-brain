@@ -52,27 +52,27 @@ export default function WidgetPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background p-4">
-            <div className="max-w-2xl mx-auto space-y-6">
+        <div className="min-h-screen bg-background p-4 sm:p-6 lg:p-8">
+            <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
                 {/* Header */}
-                <div className="text-center space-y-2">
-                    <h1 className="text-2xl font-bold">Second Brain Search Widget</h1>
-                    <p className="text-sm text-muted-foreground">
+                <div className="text-center space-y-1 md:space-y-2">
+                    <h1 className="text-xl md:text-2xl font-bold">Second Brain Search Widget</h1>
+                    <p className="text-xs md:text-sm text-muted-foreground">
                         Embeddable knowledge search powered by AI
                     </p>
                 </div>
 
                 {/* Search Bar */}
-                <Card className="p-4">
-                    <div className="flex gap-2">
+                <Card className="p-3 md:p-4">
+                    <div className="flex flex-col sm:flex-row gap-2">
                         <Input
                             placeholder="Search knowledge base..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            className="flex-1"
+                            className="flex-1 w-full sm:w-auto"
                         />
-                        <Button onClick={handleSearch} disabled={loading || !query.trim()}>
+                        <Button onClick={handleSearch} disabled={loading || !query.trim()} className="w-full sm:w-auto">
                             {loading ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
                             ) : (

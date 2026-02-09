@@ -71,16 +71,16 @@ export function KnowledgeDashboard() {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10"
+                className="flex flex-col gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10"
             >
-                <div className="flex-1 flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                     <div className="relative flex-1 group">
                         <Input
                             placeholder="Search knowledge..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            className="pr-10 bg-[#0c0c0e] border-white/5 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all duration-300 placeholder:text-gray-600"
+                            className="pr-10 bg-[#0c0c0e] border-white/5 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all duration-300 placeholder:text-gray-600 text-sm"
                         />
                         {searchQuery && (
                             <button
@@ -94,18 +94,18 @@ export function KnowledgeDashboard() {
                             </button>
                         )}
                     </div>
-                    <Button onClick={handleSearch} size="icon" className="shadow-lg shadow-primary/20">
+                    <Button onClick={handleSearch} size="icon" className="shadow-lg shadow-primary/20 flex-shrink-0">
                         <Search className="h-4 w-4" />
                     </Button>
                 </div>
 
-                <div className="flex gap-2 flex-wrap sm:flex-nowrap">
-                    <div className="relative">
+                <div className="flex flex-col sm:flex-row gap-2 flex-wrap sm:flex-nowrap">
+                    <div className="relative flex-1 sm:flex-none sm:w-auto">
                         <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <select
                             value={typeFilter}
                             onChange={(e) => setTypeFilter(e.target.value)}
-                            className="pl-9 pr-8 py-2 h-10 w-full rounded-md border border-white/5 bg-[#0c0c0e] text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/50 appearance-none cursor-pointer hover:bg-white/5 transition-colors text-gray-300"
+                            className="pl-9 pr-8 py-2 h-10 w-full rounded-md border border-white/5 bg-[#0c0c0e] text-xs sm:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/50 appearance-none cursor-pointer hover:bg-white/5 transition-colors text-gray-300"
                         >
                             <option value="" className="bg-[#0c0c0e]">All Types</option>
                             <option value="note" className="bg-[#0c0c0e]">Notes</option>
@@ -114,12 +114,12 @@ export function KnowledgeDashboard() {
                         </select>
                     </div>
 
-                    <div className="relative">
+                    <div className="relative flex-1 sm:flex-none sm:w-auto">
                         <SortAsc className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as any)}
-                            className="pl-9 pr-8 py-2 h-10 w-full rounded-md border border-white/5 bg-[#0c0c0e] text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/50 appearance-none cursor-pointer hover:bg-white/5 transition-colors text-gray-300"
+                            className="pl-9 pr-8 py-2 h-10 w-full rounded-md border border-white/5 bg-[#0c0c0e] text-xs sm:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/50 appearance-none cursor-pointer hover:bg-white/5 transition-colors text-gray-300"
                         >
                             <option value="created_at" className="bg-[#0c0c0e]">Date</option>
                             <option value="title" className="bg-[#0c0c0e]">Title</option>
@@ -130,25 +130,25 @@ export function KnowledgeDashboard() {
                         onClick={toggleSortOrder}
                         size="icon"
                         variant="outline"
-                        className="border-white/10 bg-black/20 hover:bg-white/5"
+                        className="border-white/10 bg-black/20 hover:bg-white/5 flex-shrink-0"
                     >
                         {sortOrder === 'asc' ? '↑' : '↓'}
                     </Button>
 
                     {hasActiveFilters && (
-                        <Button onClick={clearFilters} variant="ghost" size="sm" className="hover:bg-red-500/10 hover:text-red-400">
-                            <X className="h-4 w-4 mr-2" />
-                            Clear
+                        <Button onClick={clearFilters} variant="ghost" size="sm" className="hover:bg-red-500/10 hover:text-red-400 flex-shrink-0">
+                            <X className="h-4 w-4 mr-1 sm:mr-2" />
+                            <span className="hidden sm:inline">Clear</span>
                         </Button>
                     )}
 
                     <Button
                         onClick={() => setShowEmbed(true)}
                         variant="outline"
-                        className="border-cyan-500/20 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300 ml-2"
+                        className="border-cyan-500/20 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300 flex-shrink-0"
                     >
-                        <Code className="h-4 w-4 mr-2" />
-                        Embed
+                        <Code className="h-4 w-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Embed</span>
                     </Button>
                 </div>
             </motion.div>
@@ -182,7 +182,7 @@ export function KnowledgeDashboard() {
                 ) : (
                     <motion.div
                         key="grid"
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
                         initial="hidden"
                         animate="visible"
                         variants={{
@@ -221,7 +221,7 @@ export function KnowledgeDashboard() {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-[#0c0c0e] border border-white/10 rounded-xl max-w-lg w-full p-6 shadow-2xl relative"
+                            className="bg-[#0c0c0e] border border-white/10 rounded-xl max-w-lg w-full p-4 sm:p-6 shadow-2xl relative"
                         >
                             <button
                                 onClick={() => setShowEmbed(false)}
@@ -230,15 +230,15 @@ export function KnowledgeDashboard() {
                                 <X className="h-4 w-4" />
                             </button>
 
-                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-                                <Code className="h-5 w-5 text-cyan-500" />
-                                Embed Search Widget
+                            <h3 className="text-lg md:text-xl font-bold mb-2 flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2">
+                                <Code className="h-5 w-5 text-cyan-500 flex-shrink-0" />
+                                <span>Embed Search Widget</span>
                             </h3>
-                            <p className="text-sm text-muted-foreground mb-4">
+                            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                                 Place this code on your website to display your Second Brain search interface.
                             </p>
 
-                            <div className="relative bg-black/50 p-4 rounded-lg border border-white/5 mb-6">
+                            <div className="relative bg-black/50 p-3 sm:p-4 rounded-lg border border-white/5 mb-4 sm:mb-6">
                                 <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap font-mono">
                                     {`<iframe 
   src="${typeof window !== 'undefined' ? window.location.origin : ''}/widget"
@@ -263,12 +263,12 @@ export function KnowledgeDashboard() {
                                 </Button>
                             </div>
 
-                            <div className="flex justify-end gap-2">
-                                <Button variant="ghost" onClick={() => setShowEmbed(false)}>
+                            <div className="flex flex-col sm:flex-row gap-2 justify-end">
+                                <Button variant="ghost" onClick={() => setShowEmbed(false)} className="w-full sm:w-auto">
                                     Close
                                 </Button>
                                 <Button
-                                    className="bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/20"
+                                    className="bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/20 w-full sm:w-auto"
                                     onClick={() => window.open('/widget', '_blank')}
                                 >
                                     Preview Widget

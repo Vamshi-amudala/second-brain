@@ -90,8 +90,8 @@ export function KnowledgeForm() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50">
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <Card className="p-4 sm:p-6 bg-card/50 backdrop-blur-sm border-border/50">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div className="space-y-2">
                         <Label htmlFor="title" className="text-sm font-medium">
                             Title
@@ -117,8 +117,8 @@ export function KnowledgeForm() {
                             value={formData.content}
                             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                             placeholder="Write your thoughts, insights, or paste a link..."
-                            rows={6}
-                            className={errors.content ? 'border-red-500' : ''}
+                            rows={4}
+                            className={`text-sm ${errors.content ? 'border-red-500' : ''}`}
                         />
                         {errors.content && (
                             <p className="text-sm text-red-500">{errors.content}</p>

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { deleteKnowledgeItem } from '@/app/actions/knowledge';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
@@ -20,6 +20,19 @@ interface KnowledgeCardProps {
 export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    useEffect(() => {
+        if (isExpanded) {
+            // Prevent background scroll when modal is open
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+            return () => {
+                document.body.style.overflow = 'unset';
+                document.body.style.paddingRight = '0px';
+            };
+        }
+    }, [isExpanded]);
 
     const handleDelete = async () => {
         if (!confirm('Are you sure you want to delete this item?')) return;
@@ -128,13 +141,15 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                         onClick={() => setIsExpanded(false)}
+                        onWheel={(e) => e.stopPropagation()}
                     >
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            className="bg-[#0a0a0a] border border-white/10 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative ring-1 ring-white/10"
+                            className="bg-[#0a0a0a] border border-white/10 rounded-xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl relative ring-1 ring-white/10 overflow-hidden"
                             onClick={(e) => e.stopPropagation()}
+                            onWheel={(e) => e.stopPropagation()}
                         >
                             {/* Modal Header Ambient Glow */}
                             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50" />
@@ -167,7 +182,7 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                                 </Button>
                             </div>
 
-                            <div className="p-8 space-y-8 overflow-y-auto max-h-[calc(90vh-100px)] custom-scrollbar">
+                            <div className="p-8 space-y-8 overflow-y-auto flex-1 min-h-0 custom-scrollbar">
                                 {item.summary && (
                                     <div className="bg-cyan-950/20 border border-cyan-900/30 rounded-lg p-5">
                                         <h3 className="text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">

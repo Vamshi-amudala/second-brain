@@ -3,13 +3,13 @@ import { Code, Database, Palette, Zap } from 'lucide-react';
 
 export default function DocsPage() {
     return (
-        <div className="min-h-screen p-8">
-            <div className="max-w-4xl mx-auto space-y-12">
-                <div className="space-y-4">
-                    <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+        <div className="min-h-screen p-4 sm:p-6 lg:p-8">
+            <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
+                <div className="space-y-3 md:space-y-4">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
                         Documentation
                     </h1>
-                    <p className="text-xl text-muted-foreground">
+                    <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
                         Learn about the architecture, principles, and infrastructure behind Second Brain
                     </p>
                 </div>

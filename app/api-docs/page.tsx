@@ -33,20 +33,20 @@ export default function APIDocsPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-background to-background/50">
-            <div className="max-w-5xl mx-auto px-4 py-16">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+                <div className="text-center mb-12 md:mb-16">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                         API Reference
                     </h1>
-                    <p className="text-xl text-muted-foreground">
+                    <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
                         Programmatic access to your Second Brain knowledge base
                     </p>
                 </div>
 
-                <div className="space-y-12">
+                <div className="space-y-8 md:space-y-12">
                     {/* Overview */}
                     <section>
-                        <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                             <Code2 className="h-8 w-8 text-primary" />
                             Overview
                         </h2>

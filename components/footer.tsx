@@ -6,8 +6,8 @@ import { Brain, Github, Twitter } from 'lucide-react';
 export function Footer() {
     return (
         <footer className="border-t border-border/40 bg-background/95 backdrop-blur">
-            <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {/* Branding */}
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="flex items-center gap-2 group mb-4">
@@ -72,8 +72,8 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-8 border-t border-border/40 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-muted-foreground">
+                <div className="mt-8 border-t border-border/40 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
                         © {new Date().getFullYear()} Second Brain. Built for Altibbe Assignment.
                     </p>
                     <div className="flex gap-4">

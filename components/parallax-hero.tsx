@@ -27,16 +27,22 @@ export function ParallaxHero() {
 
     // Background particles logic
     const [particles, setParticles] = useState<Array<{ x: number; y: number; delay: number }>>([]);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        // Generate random particles only on client-side to match hydration
+        setIsClient(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isClient) return;
+        // Generate random particles only after client hydration
         const newParticles = Array.from({ length: 20 }).map(() => ({
             x: Math.random() * 100,
             y: Math.random() * 100,
             delay: Math.random() * 5,
         }));
         setParticles(newParticles);
-    }, []);
+    }, [isClient]);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -139,7 +145,7 @@ export function ParallaxHero() {
 
                 {/* Cinematic Text Reveal */}
                 <div className="overflow-hidden">
-                    <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight">
                         {titleWords.map((word, i) => (
                             <motion.span
                                 key={i}
@@ -150,7 +156,7 @@ export function ParallaxHero() {
                                     delay: 0.2 + i * 0.15,
                                     ease: [0.2, 0.65, 0.3, 0.9],
                                 }}
-                                className="inline-block mr-4 bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/50"
+                                className="inline-block mr-2 sm:mr-4 bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/50"
                             >
                                 {word}
                             </motion.span>
@@ -162,7 +168,7 @@ export function ParallaxHero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
-                    className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light"
+                    className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light px-2"
                 >
                     Your AI-powered knowledge engine.
                     <span className="text-white font-normal"> Capture content</span>,
@@ -174,16 +180,16 @@ export function ParallaxHero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="flex flex-wrap gap-4 justify-center pt-8"
+                    className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center pt-6 md:pt-8 px-4"
                 >
                     <Link href="/dashboard">
-                        <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-white text-black hover:bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105">
+                        <Button size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg rounded-full bg-white text-black hover:bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 w-full sm:w-auto">
                             Get Started
-                            <ArrowRight className="ml-2 h-5 w-5" />
+                            <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5" />
                         </Button>
                     </Link>
                     <Link href="/docs">
-                        <Button size="lg" variant="outline" className="h-14 px-8 text-lg rounded-full border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                        <Button size="lg" variant="outline" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg rounded-full border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105 w-full sm:w-auto">
                             Documentation
                         </Button>
                     </Link>
@@ -194,7 +200,7 @@ export function ParallaxHero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1 }}
-                    className="pt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+                    className="pt-12 md:pt-16 grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto px-4"
                 >
                     {[
                         { icon: Brain, label: 'AI Analysis' },
@@ -202,9 +208,9 @@ export function ParallaxHero() {
                         { icon: Zap, label: 'Instant Sync' },
                         { icon: Sparkles, label: 'Auto-Tagging' },
                     ].map((item, i) => (
-                        <div key={i} className="flex items-center justify-center gap-2 py-2 px-4 rounded-full bg-white/5 border border-white/5 backdrop-blur-md">
-                            <item.icon className="w-4 h-4 text-primary" />
-                            <span className="text-sm font-medium text-muted-foreground">{item.label}</span>
+                        <div key={i} className="flex items-center justify-center gap-1 sm:gap-2 py-2 px-2 sm:px-4 rounded-full bg-white/5 border border-white/5 backdrop-blur-md">
+                            <item.icon className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
+                            <span className="text-xs sm:text-sm font-medium text-muted-foreground">{item.label}</span>
                         </div>
                     ))}
                 </motion.div>
