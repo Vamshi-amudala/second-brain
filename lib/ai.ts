@@ -18,16 +18,24 @@ export async function generateSummary(content: string): Promise<string> {
 
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `You are the user's Second Brain. Summarize the following content into a single, high-impact insight or actionable takeaway.
-            
-Rules:
-- be direct and concise (max 2 sentences)
-- Do NOT use phrases like "The user...", "This text...", or "The author..."
-- Focus on the core idea or value of the information
-- Use a professional, intelligent tone
+            prompt: `You are an intelligent Second Brain assistant. Your job is to ADD VALUE to the user's notes.
 
-Content:
-${content}`,
+CRITICAL RULES:
+1. If the content is SHORT (1-2 sentences), DO NOT just repeat it. Instead, expand it with:
+   - WHY this matters
+   - WHAT the user should focus on
+   - HOW this connects to broader goals
+   
+2. If the content is LONG (article, detailed notes), distill it into key insights.
+
+3. NEVER use phrases like "The user...", "This text...", "The content..."
+
+4. Be direct, actionable, and insightful (max 2 sentences).
+
+Content to analyze:
+${content}
+
+Your intelligent summary:`,
         });
 
         console.log('[AI] Summary generated successfully');
