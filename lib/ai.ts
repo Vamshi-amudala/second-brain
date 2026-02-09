@@ -90,43 +90,45 @@ export async function enhanceContent(
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `You are a SENIOR MENTOR AI for a Second Brain system. Your role is to build "Infrastructure for Thought" by adding knowledge the user didn't explicitly provide.
+            prompt: `You are a SENIOR TECHNICAL MENTOR AI for a Second Brain system. Your role is to build "Infrastructure for Thought" by providing step-wise technical analysis.
 
-🎯 YOUR MISSION: Transform this raw note into a structured, mentor-level response that feels like guidance from an experienced advisor.
+🎯 YOUR MISSION: Transform this raw note into a numbered, step-wise technical breakdown that reveals architectural insights.
 
 📝 User's Note:
 Title: ${title}
 Content: ${content}
 
-✨ RESPONSE STRUCTURE (use Markdown with headers):
+✨ RESPONSE FORMAT (CRITICAL - Use numbered list with bold titles):
 
-### Strategic Analysis
-Analyze the INTENT behind this note (e.g., career growth, technical research, problem-solving). What is the user really trying to achieve? (1-2 sentences)
+1. **Strategic Intent**: Analyze what the user is really trying to achieve (career growth, technical mastery, problem-solving). Be direct and insightful. (1-2 sentences)
 
-### Contextual Expansion
-Add 2-3 sentences of educational context that were NOT in the original note. This should include:
-- Industry insights or best practices
-- Connections to related concepts
-- Why this matters in the broader landscape
-**Bold key terms** for scannability.
+2. **Technical Context**: Provide architectural or industry insights NOT in the original note. Include:
+   - Best practices or design patterns
+   - How this connects to broader technical landscape
+   - Why this matters for modern development
+   **Bold all key technical terms** for scannability. (2-3 sentences)
 
-### Pro-Tip
-Provide ONE actionable "Next Step" the user should take. Be specific (e.g., "Check out LangChain documentation" not "Learn more"). Format as a clear recommendation.
+3. **Actionable Next Step**: Provide ONE specific, concrete action. Must include:
+   - Exact resource (e.g., "Read the React Hooks documentation at react.dev/hooks")
+   - OR specific project (e.g., "Build a TODO app using Docker + PostgreSQL")
+   - OR concrete skill to practice (e.g., "Practice writing SQL joins with the Northwind database")
+   (1-2 sentences)
 
 🏷️ TAGS (exactly 3):
-After your mentor response, provide tags on a new line:
+After your numbered analysis, provide tags on a new line:
 TAGS: tag1, tag2, tag3
-- Mix TOPIC tags (subject) with CONTEXT tags (intent/goal)
+- Mix TOPIC tags (technology/concept) with CONTEXT tags (goal/application)
 - Use lowercase, industry-standard terms
 
-⚠️ CRITICAL RULES:
+⚠️ CRITICAL FORMATTING RULES:
+- MUST use numbered list format (1., 2., 3.)
+- MUST start each point with **Bold Title**:
+- NEVER use ### headers
 - NEVER repeat the user's input verbatim
-- Write as a mentor, not a summarizer
-- Add value through NEW information
-- Use Markdown formatting (###, **bold**)
-- Be direct and actionable
+- Add NEW technical knowledge the user didn't provide
+- Be architectural and technical, not generic
 
-💡 Begin your mentor response:`,
+💡 Begin your step-wise technical analysis:`,
         });
 
         // Extract tags from the response (they come after TAGS:)

@@ -9,6 +9,7 @@ import { deleteKnowledgeItem } from '@/app/actions/knowledge';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import ReactMarkdown from 'react-markdown';
 
 interface KnowledgeCardProps {
     item: KnowledgeItem;
@@ -84,9 +85,9 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                         </div>
 
                         {item.summary && (
-                            <p className="text-sm text-gray-400 line-clamp-3 leading-relaxed">
-                                {item.summary}
-                            </p>
+                            <div className="text-sm text-gray-400 line-clamp-3 leading-relaxed prose prose-invert prose-sm max-w-none">
+                                <ReactMarkdown>{item.summary}</ReactMarkdown>
+                            </div>
                         )}
 
                         {item.tags && item.tags.length > 0 && (
@@ -172,9 +173,9 @@ export function KnowledgeCard({ item, onDelete, index }: KnowledgeCardProps) {
                                         <h3 className="text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
                                             AI Summary
                                         </h3>
-                                        <p className="text-cyan-100/80 leading-relaxed text-sm">
-                                            {item.summary}
-                                        </p>
+                                        <div className="text-cyan-100/80 leading-relaxed text-sm prose prose-invert prose-sm max-w-none prose-headings:text-cyan-300 prose-strong:text-cyan-200 prose-p:text-cyan-100/80">
+                                            <ReactMarkdown>{item.summary}</ReactMarkdown>
+                                        </div>
                                     </div>
                                 )}
 
