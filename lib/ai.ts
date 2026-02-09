@@ -90,38 +90,53 @@ export async function enhanceContent(
     try {
         const { text } = await generateText({
             model: getAIModel(),
-            prompt: `You are an elite knowledge synthesis AI for a Second Brain system.
+            prompt: `You are a SENIOR MENTOR AI for a Second Brain system. Your role is to build "Infrastructure for Thought" by adding knowledge the user didn't explicitly provide.
 
-🎯 YOUR MISSION: Transform this raw note into structured, actionable intelligence.
+🎯 YOUR MISSION: Transform this raw note into a structured, mentor-level response that feels like guidance from an experienced advisor.
 
-📝 Content:
+📝 User's Note:
 Title: ${title}
 Content: ${content}
 
-✨ SYNTHESIS REQUIREMENTS:
+✨ RESPONSE STRUCTURE (use Markdown with headers):
 
-1. **SUMMARY** (2-3 sentences):
-   - Extract the CORE INSIGHT (what this really means)
-   - Explain WHY this matters or WHAT it enables
-   - Be conversational and direct (avoid "The user...", "This content...")
-   - Focus on ACTIONABLE VALUE
+### Strategic Analysis
+Analyze the INTENT behind this note (e.g., career growth, technical research, problem-solving). What is the user really trying to achieve? (1-2 sentences)
 
-2. **TAGS** (exactly 3):
-   - Mix TOPIC tags (subject) with CONTEXT tags (application/goal)
-   - Use lowercase, industry-standard terms
-   - Optimize for future discovery and connection-making
+### Contextual Expansion
+Add 2-3 sentences of educational context that were NOT in the original note. This should include:
+- Industry insights or best practices
+- Connections to related concepts
+- Why this matters in the broader landscape
+**Bold key terms** for scannability.
 
-📤 FORMAT (strict):
-SUMMARY: [your intelligent synthesis here]
+### Pro-Tip
+Provide ONE actionable "Next Step" the user should take. Be specific (e.g., "Check out LangChain documentation" not "Learn more"). Format as a clear recommendation.
+
+🏷️ TAGS (exactly 3):
+After your mentor response, provide tags on a new line:
 TAGS: tag1, tag2, tag3
+- Mix TOPIC tags (subject) with CONTEXT tags (intent/goal)
+- Use lowercase, industry-standard terms
 
-💡 Begin:`,
+⚠️ CRITICAL RULES:
+- NEVER repeat the user's input verbatim
+- Write as a mentor, not a summarizer
+- Add value through NEW information
+- Use Markdown formatting (###, **bold**)
+- Be direct and actionable
+
+💡 Begin your mentor response:`,
         });
 
-        const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=TAGS:|$)/);
+        // Extract tags from the response (they come after TAGS:)
         const tagsMatch = text.match(/TAGS:\s*([\s\S]+?)$/);
 
-        const summary = summaryMatch ? summaryMatch[1].trim() : await generateSummary(content);
+        // Extract the full mentor response (everything before TAGS:)
+        // This includes Strategic Analysis, Contextual Expansion, and Pro-Tip in Markdown
+        const mentorResponseMatch = text.match(/([\s\S]+?)(?=TAGS:|$)/);
+
+        const summary = mentorResponseMatch ? mentorResponseMatch[1].trim() : await generateSummary(content);
         const tagsText = tagsMatch ? tagsMatch[1].trim() : '';
         const tags = tagsText
             .split(',')
